@@ -1,0 +1,10 @@
+/home/alexis_soto-yanez/HARDN-XDR/HARDN-XDR-main/src/gui/target/release/deps/libversion_check-ca30a6ae90d690dc.rmeta: /home/alexis_soto-yanez/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/version_check-0.9.5/src/lib.rs /home/alexis_soto-yanez/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/version_check-0.9.5/src/version.rs /home/alexis_soto-yanez/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/version_check-0.9.5/src/channel.rs /home/alexis_soto-yanez/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/version_check-0.9.5/src/date.rs
+
+/home/alexis_soto-yanez/HARDN-XDR/HARDN-XDR-main/src/gui/target/release/deps/libversion_check-ca30a6ae90d690dc.rlib: /home/alexis_soto-yanez/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/version_check-0.9.5/src/lib.rs /home/alexis_soto-yanez/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/version_check-0.9.5/src/version.rs /home/alexis_soto-yanez/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/version_check-0.9.5/src/channel.rs /home/alexis_soto-yanez/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/version_check-0.9.5/src/date.rs
+
+/home/alexis_soto-yanez/HARDN-XDR/HARDN-XDR-main/src/gui/target/release/deps/version_check-ca30a6ae90d690dc.d: /home/alexis_soto-yanez/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/version_check-0.9.5/src/lib.rs /home/alexis_soto-yanez/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/version_check-0.9.5/src/version.rs /home/alexis_soto-yanez/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/version_check-0.9.5/src/channel.rs /home/alexis_soto-yanez/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/version_check-0.9.5/src/date.rs
+
+/home/alexis_soto-yanez/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/version_check-0.9.5/src/lib.rs:
+/home/alexis_soto-yanez/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/version_check-0.9.5/src/version.rs:
+/home/alexis_soto-yanez/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/version_check-0.9.5/src/channel.rs:
+/home/alexis_soto-yanez/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/version_check-0.9.5/src/date.rs:

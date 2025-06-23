@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# HARDN GUI Launcher Script
+# This script launches the GTK4 GUI for HARDN
+
+GUI_PATH="/usr/share/hardn/gui/hardn-gui"
+LOCAL_GUI_PATH="./src/gui/target/debug/hardn-gui"
+
+# Check if GUI exists in system location
+if [ -f "$GUI_PATH" ]; then
+    exec "$GUI_PATH" "$@"
+# Check if GUI exists in development location
+elif [ -f "$LOCAL_GUI_PATH" ]; then
+    exec "$LOCAL_GUI_PATH" "$@"
+else
+    echo "HARDN GUI not found. Please ensure the GUI is properly installed."
+    echo "You can build it by running: cd src/gui && cargo build"
+    exit 1
+fi 

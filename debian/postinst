@@ -1,0 +1,52 @@
+#!/bin/bash
+
+set -e
+
+case "$1" in
+    configure)
+
+        if ! getent passwd hardn >/dev/null; then
+            adduser --system --group --home /var/lib/hardn --shell /usr/sbin/nologin hardn
+        fi
+
+
+        install -d -m 750 -o hardn -g hardn /var/log/hardn
+
+
+        if [ -d /etc/hardn ]; then
+            chown root:hardn /etc/hardn
+            chmod 750 /etc/hardn
+        fi
+
+
+        install -d -m 750 -o hardn -g hardn /var/lib/hardn/backups
+
+
+        if [ ! -f /etc/hardn/hardn.conf ] && [ -f /usr/share/hardn/templates/hardn.conf ]; then
+            cp /usr/share/hardn/templates/hardn.conf /etc/hardn/
+            chown root:hardn /etc/hardn/hardn.conf
+            chmod 640 /etc/hardn/hardn.conf
+        fi
+
+
+        if command -v systemctl >/dev/null; then
+            systemctl daemon-reload
+            systemctl enable hardn-monitor.service || true
+        else
+            echo "systemctl not found, skipping service enablement."
+        fi
+
+        echo "HARDN installed successfully."
+        echo "Run 'sudo hardn setup' to begin system hardening."
+        ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+        ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+        ;;
+esac
+
+exit 0

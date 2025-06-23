@@ -1,0 +1,42 @@
+name: Version Control - Patch Increment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  bump-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Fetch all tags
+        run: git fetch --tags
+
+      - name: Get latest v1.1.x tag
+        id: get_tag
+        run: |
+          latest_tag=$(git tag -l "v1.1.*" --sort=-v:refname | head -n 1)
+          echo "latest_tag=$latest_tag" >> $GITHUB_OUTPUT
+
+      - name: Extract patch version and bump
+        id: bump
+        run: |
+          tag="${{ steps.get_tag.outputs.latest_tag }}"
+          patch=${tag##*.}
+          new_patch=$((patch + 1))
+          new_tag="v1.1.$new_patch"
+          echo "new_tag=$new_tag" >> $GITHUB_OUTPUT
+
+      - name: Delete current tag locally and remotely
+        if: steps.get_tag.outputs.latest_tag != ''
+        run: |
+          git tag -d "${{ steps.get_tag.outputs.latest_tag }}"
+          git push --delete origin "${{ steps.get_tag.outputs.latest_tag }}"
+
+      - name: Create and push new tag
+        run: |
+          git tag "${{ steps.bump.outputs.new_tag }}"
+          git push origin "${{ steps.bump.outputs.new_tag }}"

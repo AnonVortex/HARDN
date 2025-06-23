@@ -1,0 +1,41 @@
+# Logs
+*.log
+/tmp/
+/var/log/
+
+# Docker
+.dockerignore
+
+# Test artifacts
+lynis-*.dat
+lynis-*.log
+
+# Build artifacts
+*.tmp
+*.bak
+
+# Debian packaging build artifacts
+debian/.debhelper/
+debian/files
+debian/*.substvars
+debian/*.debhelper
+debian/debhelper-build-stamp
+debian/hardn/
+*.deb
+*.buildinfo
+*.changes
+*.dsc
+*.tar.gz
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class

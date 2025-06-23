@@ -1,0 +1,40 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4
+      - name: Version
+        run: |
+          export DEBEMAIL="github@github-runner.bpg";
+          export DEBFULLNAME="GitHub Runner";
+          gbp dch --snapshot --auto --snapshot-number=${GITHUB_RUN_NUMBER:-0} --git-log="HEAD" --ignore-branch;
+      - name: Build
+        run: |
+          debuild -uc -us
+          rc=$?
+          if [[ $rc -eq 0 ]]; then
+            status=OK
+            msg="$(ls ../hardn*.deb)"
+          else
+            status=NOK
+            msg="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          fi
+          hardn-discord.sh "$status" "$msg"
+      - name: Deploy
+        if: success()
+        run: |
+          scp ../hardn*.deb webgateway:debs-hardn
+          ssh webgateway "aptly repo add hardn debs-hardn"
+          ssh webgateway "aptly publish update bookworm filesystem:web-hardn:"
+      - name: Clean
+        if: always()
+        run: |
+          debuild -- clean
+          rm ../hardn*

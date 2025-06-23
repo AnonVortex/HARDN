@@ -1,0 +1,52 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	# Build the Rust GUI
+	cd src/gui && cargo build --release
+
+override_dh_auto_install:
+	set -e
+	
+	# Main executables
+	install -D -m 755 usr/bin/hardn debian/hardn/usr/bin/hardn
+	install -D -m 755 usr/bin/hardn-api debian/hardn/usr/bin/hardn-api
+	install -D -m 755 usr/bin/hardn-gui-launcher debian/hardn/usr/bin/hardn-gui-launcher
+	
+	# GUI binary
+	install -D -m 755 src/gui/target/release/hardn-gui debian/hardn/usr/bin/hardn-gui
+
+	# Man page
+	install -D -m 644 hardn.1 debian/hardn/usr/share/man/man1/hardn.1
+
+	# Modules
+	install -d debian/hardn/usr/share/hardn/modules
+	install -m 644 usr/share/hardn/modules/*.sh debian/hardn/usr/share/hardn/modules/
+
+	# Temps
+	install -d debian/hardn/usr/share/hardn/templates
+	install -m 644 usr/share/hardn/templates/* debian/hardn/usr/share/hardn/templates/
+
+	# backend API 
+	install -D -m 755 usr/share/hardn/hardn-api.py debian/hardn/usr/share/hardn/hardn-api.py
+
+	# Tools
+	cp -a usr/share/hardn/tools debian/hardn/usr/share/hardn/
+	find debian/hardn/usr/share/hardn/tools -name "*.sh" -exec chmod 755 {} \;
+
+	# Docs
+	install -d debian/hardn/usr/share/doc/hardn
+	install -m 644 README.md debian/hardn/usr/share/doc/hardn/
+	install -m 644 docs/changelog.md debian/hardn/usr/share/doc/hardn/
+	install -m 644 docs/*.md debian/hardn/usr/share/doc/hardn/ || true
+
+	# Systemd 
+	install -d debian/hardn/lib/systemd/system
+	install -m 644 systemd/*.service debian/hardn/lib/systemd/system/
+
+	# Config and runtime 
+	install -d debian/hardn/etc/hardn
+	install -d debian/hardn/var/log/hardn
+	install -d debian/hardn/var/lib/hardn/backups
